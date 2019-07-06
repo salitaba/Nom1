@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be33334c-096d-4a48-ba7c-fd979f2ecbf6" name="Default Changelist" comment="" />
+    <list default="true" id="be33334c-096d-4a48-ba7c-fd979f2ecbf6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/university/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/university/api/v1/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/university/api/v1/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/university/api/v1/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/university/api/v1/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/university/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/university/models.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,10 +33,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/university/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="61" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+            <state relative-caret-position="391">
+              <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/university/api/v1/views.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/university/api/v1/urls.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/university/api/v1/serializers.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -38,10 +61,21 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>choices</find>
+      <find>id = models.IntegerField</find>
     </findStrings>
+    <replaceStrings>
+      <replace>id = models.PositiveIntegerField(primary_key=True)</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,17 +85,10 @@
       <list>
         <option value="$PROJECT_DIR$/Nom1/settings.py" />
         <option value="$PROJECT_DIR$/university/admin.py" />
+        <option value="$PROJECT_DIR$/university/api/v1/views.py" />
+        <option value="$PROJECT_DIR$/university/api/v1/urls.py" />
+        <option value="$PROJECT_DIR$/university/api/v1/serializers.py" />
         <option value="$PROJECT_DIR$/university/models.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/Nom1.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
       </list>
     </option>
   </component>
@@ -94,6 +121,19 @@
               <item name="Nom1" type="462c0819:PsiDirectoryNode" />
               <item name="university" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Nom1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Nom1" type="462c0819:PsiDirectoryNode" />
+              <item name="university" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Nom1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Nom1" type="462c0819:PsiDirectoryNode" />
+              <item name="university" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -101,6 +141,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -182,10 +223,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/university/api/v1/views.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/university/api/v1/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/university/api/v1/serializers.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/university/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="61" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+        <state relative-caret-position="391">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
         </state>
       </provider>
     </entry>

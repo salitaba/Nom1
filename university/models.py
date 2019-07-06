@@ -1,49 +1,59 @@
 from django.db import models
 
+
 # Create your models here.
 
-class University (models.Model):
-    id = models.IntegerField
+class University(models.Model):
+    Choices = [
+        ('gov', 'Governmental'),
+        ('ngo', 'non-governmental'),
+    ]
+    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=10)
-    Choices = [('gov', 'Governmental'), ('ngo', 'non-governmental')]
     type = models.CharField(max_length=100, choices=Choices, default='gov')
+
     def __str__(self):
         return self.name
 
+
 class Faculty(models.Model):
-    id = models.IntegerField
+    class Meta:
+        ordering = ('title',)
+
+    id = models.PositiveIntegerField(primary_key=True)
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
     postal_code = models.IntegerField()
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
-    class Meta:
-        ordering = ('title',)
 
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
 
 class Course(models.Model):
     class Meta:
         ordering = ('title',)
 
-    id = models.IntegerField
+    Choices = [(0, 'active'), (1, 'inactive')]
+    id = models.PositiveIntegerField(primary_key=True)
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
-    start = models.DateTimeField
-    end = models.DateTimeField
-    Choices = [('active', 'active'), ('inactive', 'inactive')]
-    term = models.CharField(max_length=10, choices=Choices, default='activate')
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
+    term = models.IntegerField(choices=Choices, default=0)
 
     def __str__(self):
         return self.title
 
-class Teacher (models.Model):
+
+class Teacher(models.Model):
     class Meta:
         ordering = ('last_name',)
-    id = models.IntegerField
+
+    id = models.PositiveIntegerField(primary_key=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
@@ -55,9 +65,8 @@ class Teacher (models.Model):
         return self.last_name
 
 
-
-class StudentCard (models.Model):
-    id = models.IntegerField
+class StudentCard(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
     code_hex = models.CharField(max_length=100)
     code_digit = models.CharField(max_length=100)
     Choices = [('yes', 'yes'), ('no', 'no')]
@@ -66,11 +75,16 @@ class StudentCard (models.Model):
     def __str__(self):
         return self.code_digit
 
-class Student (models.Model):
-    id = models.IntegerField
+
+class Student(models.Model):
+    Choices = [
+        ('active', 'active'),
+        ('inactivate', 'inactivate'),
+    ]
+
+    id = models.PositiveIntegerField(primary_key=True)
     code = models.CharField(max_length=100)
     entrance = models.IntegerField()
-    Choices = [('active', 'active'), ('inactivate', 'inactivate')]
     activate_type = models.CharField(max_length=100, choices=Choices, default='active')
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -84,4 +98,3 @@ class Student (models.Model):
 
     class Meta:
         ordering = ('last_name',)
-
