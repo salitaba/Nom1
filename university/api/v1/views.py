@@ -19,7 +19,7 @@ class StudentCardView(APIView):
         studentCard = StudentCard.objects.all()
         serializer = StudentCardSerializer(studentCard, many=True)
         return Response(
-            {"students": serializer.data}
+            {"student_cards": serializer.data}
         )
 
 
@@ -28,7 +28,14 @@ class TeacherView(APIView):
         teacher = Teacher.objects.all()
         serializer = TeacherSerializer(teacher, many=True)
         return Response(
-            {"students": serializer.data}
+            {"teachers": serializer.data}
         )
 
 
+class CourseView(APIView):
+    def get(self, request):
+        course = Course.objects.all()
+        serializer = CourseSerializer(course, many=True)
+        return Response(
+            {"courses": serializer.data}
+        )
