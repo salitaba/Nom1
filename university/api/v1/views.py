@@ -39,3 +39,13 @@ class CourseView(APIView):
         return Response(
             {"courses": serializer.data}
         )
+
+
+class UniversityView(APIView):
+    def get(self, request):
+        university = University.objects.all()
+        serializer = UniversitySerializer(university, many=True)
+        return Response(
+            {"university": serializer.data}
+        )
+
