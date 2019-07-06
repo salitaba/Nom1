@@ -31,8 +31,6 @@ class Faculty(models.Model):
         return self.title
 
 
-
-
 class Course(models.Model):
     class Meta:
         ordering = ('title',)
