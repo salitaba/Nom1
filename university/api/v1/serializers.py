@@ -14,6 +14,8 @@ class FacultySerializer(serializers.ModelSerializer):
     class Meta:
         model = Faculty
         fields = '__all__'
+    def create(self, validated_data):
+        return Faculty.objects.create(**validated_data)
     
 class StudentCardSerializer(serializers.ModelSerializer):
     class Meta:

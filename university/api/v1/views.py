@@ -66,12 +66,12 @@ class CourseView(APIView):
             {"courses": serializer.data}
         )
     def post(self, request):
-        cousre = request.data.get('course')
-        serializer = CourseSerializer(data=cousre)
+        course = request.data.get('course')
+        serializer = CourseSerializer(data=course)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(
-            {"success": "course '{}' created successfully".format(cousre)}
+            {"success": "course '{}' created successfully".format(course)}
         )
 
 
@@ -90,4 +90,12 @@ class FacultyView(APIView):
         serializer = FacultySerializer(faculty, many=True)
         return Response(
             {"faculty": serializer.data}
+        )
+    def post(self, request):
+        faculty = request.data.get('faculty')
+        serializer = FacultySerializer(data=faculty)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(
+            {"success": "faculty '{}' created successfully".format(faculty)}
         )

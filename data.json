@@ -1,10 +1,10 @@
 {
-	"course": {
-		"id": 4,
-		"title": "ap",
-		"code": "2103j32",
-		"start": null,
-		"end": null,
-		"term": "0"
+	"faculty": {
+		"id": 2,
+		"title": "Technical",
+		"address": "karegar",
+		"code": "o1sdl3j2",
+		"postal_code": 1234,
+		"university": 1
 	}
 }
