@@ -1,18 +1,10 @@
 {
-    "student": 
-        {
-            "id": 5,
-            "code": "jdsoij23",
-            "entrance": 1397,
-            "activate_type": "active",
-            "first_name": "seyed",
-            "last_name": "ali",
-            "faculty": 1,
-            "studentCard": 5,
-            "courses": [
-                3,
-                1
-            ]
-        }
-    
+	"course": {
+		"id": 4,
+		"title": "ap",
+		"code": "2103j32",
+		"start": null,
+		"end": null,
+		"term": "0"
+	}
 }

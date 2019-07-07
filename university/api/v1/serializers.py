@@ -5,6 +5,9 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+    def create(self, validated_data):
+        return Course.objects.create(**validated_data)
+
 
 
 class FacultySerializer(serializers.ModelSerializer):
@@ -16,13 +19,11 @@ class StudentCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentCard
         fields = '__all__'
-
+    def create(self, validated_data):
+        return StudentCard.objects.create(**validated_data)
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    # courses = CourseSerializer(many=True)
-    # faculty = FacultySerializer()
-    # studentCard = StudentCardSerializer()
 
     class Meta:
         model = Student
@@ -30,19 +31,23 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         course_data = validated_data.pop('courses')
-        # studentCard = validated_data.pop('studentCard')
         student = Student.objects.create(**validated_data)
-        # student.studentCard.add(studentCard)
-        for id in course_data :
-            student.courses.add(id)
+        for course in course_data :
+            student.courses.add(course)
         return student
-        # return Student.objects.create(**validated_data)
 
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = '__all__'
+
+    def create(self, validated_data):
+        course_data = validated_data.pop('courses')
+        teacher = Teacher.objects.create(**validated_data)
+        for course in course_data :
+            teacher.courses.add(course)
+        return teacher
 
 
 

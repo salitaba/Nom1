@@ -30,6 +30,14 @@ class StudentCardView(APIView):
         return Response(
             {"student_cards": serializer.data}
         )
+    def post(self, request):
+        student_card = request.data.get('student_card')
+        serializer = StudentCardSerializer(data=student_card)
+        if serializer.is_valid(raise_exception=True):
+            student_card_saved = serializer.save()
+        return Response(
+            {"success": "Student_card '{}' created successfully".format(student_card)}
+        )
 
 
 class TeacherView(APIView):
@@ -39,6 +47,15 @@ class TeacherView(APIView):
         return Response(
             {"teachers": serializer.data}
         )
+    def post(self, request):
+        teacher = request.data.get('teacher')
+        serializer = TeacherSerializer(data=teacher)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(
+            {"success": "teacher '{}' created successfully".format(teacher)}
+        )
+    
 
 
 class CourseView(APIView):
@@ -47,6 +64,14 @@ class CourseView(APIView):
         serializer = CourseSerializer(course, many=True)
         return Response(
             {"courses": serializer.data}
+        )
+    def post(self, request):
+        cousre = request.data.get('course')
+        serializer = CourseSerializer(data=cousre)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(
+            {"success": "course '{}' created successfully".format(cousre)}
         )
 
 
