@@ -13,6 +13,15 @@ class StudentView(APIView):
             {"students": serializer.data}
         )
 
+    def post(self, request):
+        student = request.data.get('student')
+        serializer = StudentSerializer(data=student)
+        if serializer.is_valid(raise_exception=True):
+            student_saved = serializer.save()
+        return Response(
+            {"success": "Student '{}' created successfully".format(student)}
+        )
+
 
 class StudentCardView(APIView):
     def get(self, request):
@@ -49,3 +58,11 @@ class UniversityView(APIView):
             {"university": serializer.data}
         )
 
+
+class FacultyView(APIView):
+    def get(self, request):
+        faculty = Faculty.objects.all()
+        serializer = FacultySerializer(faculty, many=True)
+        return Response(
+            {"faculty": serializer.data}
+        )
