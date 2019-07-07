@@ -58,5 +58,6 @@ class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = '__all__'
-
+    def create(self, validated_data):
+        return University.objects.create(**validated_data)
 

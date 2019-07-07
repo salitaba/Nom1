@@ -1,10 +1,7 @@
 {
-	"faculty": {
-		"id": 2,
-		"title": "Technical",
-		"address": "karegar",
-		"code": "o1sdl3j2",
-		"postal_code": 1234,
-		"university": 1
+	"university": {
+		"id": 4,
+		"name": "Tehran",
+		"type": "gov"
 	}
 }
