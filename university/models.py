@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
 # Create your models here.
 
 class University(models.Model):
@@ -102,7 +103,7 @@ class Student(models.Model):
         default=None,
     )
 
-
+    
     def __str__(self):
         return self.last_name
 

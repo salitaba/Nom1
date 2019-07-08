@@ -3,16 +3,19 @@ from rest_framework.views import APIView
 from django.contrib.auth.models import User
 
 from university.models import University, Student, StudentCard, Teacher, Course, Faculty
-from university.api.v1.serializers import UniversitySerializer, StudentSerializer, StudentCardSerializer, TeacherSerializer, FacultySerializer, UniversitySerializer
+from university.api.v1.serializers import UniversitySerializer, StudentSerializer, StudentCardSerializer, TeacherSerializer, FacultySerializer, CourseSerializer
 
+from jwt import decode
 
 class StudentView(APIView):
     def get(self, request):
-        student = Student.objects.all()
+        # student = Student.objects.all()
+        student = request.user.student
         serializer = StudentSerializer(student, many=True)
-        return Response(
-            {"students": serializer.data}
-        )
+        return Response({   
+            "students": serializer.data,
+                    
+        })
 
     def post(self, request):
         student = request.data.get('student')
@@ -21,15 +24,17 @@ class StudentView(APIView):
             serializer.save()
             # user = User.objects.create_user()
             
-        return Response(
-            {"success": "Student '{}' created successfully".format(student)}
+        return Response({
+            "success": "Student '{}' created successfully".format(student)}
         )
 
 
 class StudentCardView(APIView):
     def get(self, request):
-        studentCard = StudentCard.objects.all()
-        serializer = StudentCardSerializer(studentCard, many=True)
+        
+        # studentCard = StudentCard.objects.all()
+        studentCard = request.user.student.studentCard
+        serializer = StudentCardSerializer(studentCard)
         return Response(
             {"student_cards": serializer.data}
         )
@@ -45,8 +50,10 @@ class StudentCardView(APIView):
 
 class TeacherView(APIView):
     def get(self, request):
-        teacher = Teacher.objects.all()
-        serializer = TeacherSerializer(teacher, many=True)
+        # teacher = Teacher.objects.all()
+        teacher = request.user.teacher
+        # teacher = Teacher.objects.get(pk=id)
+        serializer = TeacherSerializer(teacher)#, many=True)
         return Response(
             {"teachers": serializer.data}
         )
@@ -63,7 +70,12 @@ class TeacherView(APIView):
 
 class CourseView(APIView):
     def get(self, request):
-        course = Course.objects.all()
+        user = request.user
+        if hasattr(user, 'teacher') == True :
+            course = user.teacher.courses
+        elif hasattr(user, 'student') == True :
+            course = user.student.courses
+        # course = Course.objects.all()
         serializer = CourseSerializer(course, many=True)
         return Response(
             {"courses": serializer.data}
@@ -80,8 +92,14 @@ class CourseView(APIView):
 
 class UniversityView(APIView):
     def get(self, request):
-        university = University.objects.all()
-        serializer = UniversitySerializer(university, many=True)
+        user = request.user
+        if hasattr(user, 'teacher') == True :
+            faculty = user.teacher.faculty
+        elif hasattr(user, 'student') == True :
+            faculty = user.student.faculty
+        university = faculty.university
+        # university = University.objects.all()
+        serializer = UniversitySerializer(university)
         return Response(
             {"university": serializer.data}
         )
@@ -96,8 +114,13 @@ class UniversityView(APIView):
 
 class FacultyView(APIView):
     def get(self, request):
-        faculty = Faculty.objects.all()
-        serializer = FacultySerializer(faculty, many=True)
+        user = request.user
+        if hasattr(user, 'teacher') == True :
+            faculty = user.teacher.faculty
+        elif hasattr(user, 'student') == True :
+            faculty = user.student.faculty
+        # faculty = Faculty.objects.all()
+        serializer = FacultySerializer(faculty)
         return Response(
             {"faculty": serializer.data}
         )
@@ -106,6 +129,6 @@ class FacultyView(APIView):
         serializer = FacultySerializer(data=faculty)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-        return Response(
-            {"success": "faculty '{}' created successfully".format(faculty)}
-        )
+        return Response({
+            "success": "faculty '{}' created successfully".format(faculty)
+        })
