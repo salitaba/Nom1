@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 
 
 # Create your models here.
@@ -26,7 +26,11 @@ class Faculty(models.Model):
     address = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
     postal_code = models.IntegerField()
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    university = models.ForeignKey(
+        to=University,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.title
@@ -36,13 +40,17 @@ class Course(models.Model):
     class Meta:
         ordering = ('title',)
 
-    Choices = [(0, 'active'), (1, 'inactive')]
+    course_active_choices = [
+        (0, 'inactive'),
+        (1, 'active'),
+    ]
+
     id = models.PositiveIntegerField(primary_key=True)
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
     start = models.DateField(null=True)
     end = models.DateField(null=True)
-    term = models.IntegerField(choices=Choices, default=0)
+    course_status_type = models.IntegerField(choices=course_active_choices, default=0)
 
     def __str__(self):
         return self.title
@@ -57,10 +65,16 @@ class Teacher(models.Model):
     last_name = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
 
-    courses = models.ManyToManyField(Course, blank=True)
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    courses = models.ManyToManyField(
+        to=Course,
+        blank=True,
+    )
+    faculty = models.ForeignKey(
+        to=Faculty,
+        on_delete=models.CASCADE,
+    )
     user = models.OneToOneField(
-        get_user_model(),
+        to=get_user_model(),
         on_delete=models.CASCADE,
         default=None,
     )
@@ -70,40 +84,55 @@ class Teacher(models.Model):
 
 
 class StudentCard(models.Model):
+    inuse_choices = [
+        (0, 'not inuse'),
+        (1, 'inuse'),
+        (9, 'Expired'),
+    ]
+
     id = models.PositiveIntegerField(primary_key=True)
     code_hex = models.CharField(max_length=100)
     code_digit = models.CharField(max_length=100)
-    Choices = [('yes', 'yes'), ('no', 'no')]
-    in_use = models.CharField(max_length=10, choices=Choices, default='yes')
+    in_use_status = models.IntegerField(choices=inuse_choices, default=inuse_choices[0][0])
 
     def __str__(self):
         return self.code_digit
 
 
 class Student(models.Model):
-    Choices = [
-        ('active', 'active'),
-        ('inactivate', 'inactivate'),
+    student_active_choices = [
+        (0, 'inactive'),
+        (1, 'active'),
+        (2, 'blocked'),
+        (9, 'banned'),
     ]
 
     id = models.PositiveIntegerField(primary_key=True)
     code = models.CharField(max_length=100)
     entrance = models.IntegerField()
-    activate_type = models.CharField(max_length=100, choices=Choices, default='active')
+    active_status_type = models.CharField(max_length=100, choices=student_active_choices,
+                                          default=student_active_choices[0][0])
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
-    faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    courses = models.ManyToManyField(Course, blank=True)
-    studentCard = models.OneToOneField(StudentCard, on_delete=models.CASCADE)
-
+    courses = models.ManyToManyField(
+        to=Course,
+        blank=True,
+    )
+    faculty = models.ForeignKey(
+        to=Faculty,
+        on_delete=models.CASCADE,
+    )
+    studentCard = models.OneToOneField(
+        to=StudentCard,
+        on_delete=models.CASCADE,
+    )
     user = models.OneToOneField(
         get_user_model(),
         on_delete=models.CASCADE,
         default=None,
     )
 
-    
     def __str__(self):
         return self.last_name
 
