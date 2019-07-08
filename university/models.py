@@ -56,12 +56,13 @@ class Teacher(models.Model):
     last_name = models.CharField(max_length=100)
     code = models.CharField(max_length=100)
 
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    # user = models.OneToOneField(
-    #     get_user_model(),
-    #     on_delete=models.CASCADE,
-    # )
+    user = models.OneToOneField(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        default=None,
+    )
 
     def __str___(self):
         return self.last_name
@@ -92,8 +93,15 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
 
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=True)
     studentCard = models.OneToOneField(StudentCard, on_delete=models.CASCADE)
+
+    user = models.OneToOneField(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        default=None,
+    )
+
 
     def __str__(self):
         return self.last_name
