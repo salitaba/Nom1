@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_jwt.views import ObtainJSONWebToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('university.api.v1.urls')),
+    path('api/v1/', include('university.api.v1.urls')),
+    path('jwt/create',  ObtainJSONWebToken.as_view()),
 ]

@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.contrib.auth.models import User
 
-from university.models import *
-from university.api.v1.serializers import *
+from university.models import University, Student, StudentCard, Teacher, Course, Faculty
+from university.api.v1.serializers import UniversitySerializer, StudentSerializer, StudentCardSerializer, TeacherSerializer, FacultySerializer, UniversitySerializer
 
 
 class StudentView(APIView):
@@ -17,7 +18,9 @@ class StudentView(APIView):
         student = request.data.get('student')
         serializer = StudentSerializer(data=student)
         if serializer.is_valid(raise_exception=True):
-            student_saved = serializer.save()
+            serializer.save()
+            # user = User.objects.create_user()
+            
         return Response(
             {"success": "Student '{}' created successfully".format(student)}
         )
@@ -34,7 +37,7 @@ class StudentCardView(APIView):
         student_card = request.data.get('student_card')
         serializer = StudentCardSerializer(data=student_card)
         if serializer.is_valid(raise_exception=True):
-            student_card_saved = serializer.save()
+            serializer.save()
         return Response(
             {"success": "Student_card '{}' created successfully".format(student_card)}
         )

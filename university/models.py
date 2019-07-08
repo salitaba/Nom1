@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -58,6 +58,10 @@ class Teacher(models.Model):
 
     courses = models.ManyToManyField(Course)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
+    # user = models.OneToOneField(
+    #     get_user_model(),
+    #     on_delete=models.CASCADE,
+    # )
 
     def __str___(self):
         return self.last_name
