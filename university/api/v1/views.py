@@ -10,8 +10,19 @@ from jwt import decode
 class StudentView(APIView):
     def get(self, request):
         # student = Student.objects.all()
-        student = request.user.student
-        serializer = StudentSerializer(student, many=True)
+        user = request.user
+        student_list = []
+        if hasattr(user, 'student') == True:
+            student_list.append(user.student)
+        elif hasattr(user, 'teacher') == True:
+            courses = user.teacher.courses.all()
+            for course in courses : 
+                students = course.student_set.all()
+                for student in students :
+                    student_list.append(student)
+        student_list = list(set(student_list))
+        # student = request.user.student
+        serializer = StudentSerializer(student_list, many=True)
         return Response({   
             "students": serializer.data,
                     
@@ -51,9 +62,20 @@ class StudentCardView(APIView):
 class TeacherView(APIView):
     def get(self, request):
         # teacher = Teacher.objects.all()
-        teacher = request.user.teacher
+        user = request.user
+        all_teacher = []
+        if hasattr(user, 'teacher') == True:
+            all_teacher.append(user.teacher)
+        elif hasattr(user, 'student') == True:
+            courses = user.student.courses.all()
+            for course in courses :
+                teachers = course.teacher_set.all()
+                for teacher in teachers:
+                    all_teacher.append(teacher)
+
+        all_teacher = list(set(all_teacher))
         # teacher = Teacher.objects.get(pk=id)
-        serializer = TeacherSerializer(teacher)#, many=True)
+        serializer = TeacherSerializer(all_teacher, many=True)
         return Response(
             {"teachers": serializer.data}
         )
