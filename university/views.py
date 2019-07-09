@@ -6,9 +6,12 @@ from rest_framework.views import APIView
 
 class HelloWorld(APIView):
     def get(self, request):
-        teacher = request.user.teacher.last_name
+        # teacher = request.user.teacher.last_name
+        # response = {
+        #     'username': teacher,
+        #     "id": "id",
+        # }
         response = {
-            'username': teacher,
-            "id": "id",
+            "id" : request.id
         }
         return Response(response)

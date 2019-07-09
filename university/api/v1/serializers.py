@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from university.models import *
+from university.models import Course, StudentCard, Student, Teacher, Faculty, University
 
 
 class CourseSerializer(serializers.ModelSerializer):
